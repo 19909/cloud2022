@@ -1,0 +1,34 @@
+server:
+  port: 8802
+spring:
+  application:
+    name: cloud-stream-consumer
+  cloud:
+    stream:
+      binders:
+        defaultRabbit:
+          type: rabbit
+          environment:
+            spring:
+              rabbitmq:
+                host: 192.168.74.100
+                port: 5672
+                username: admin
+                password: admin
+      bindings:
+        input:
+          destination: studyExchange
+          content-type: application/json
+          binder: defaultRabbit
+          #设置消费组,同组之间消费消息是竞争关系，不同组之间可以重复消费  (如果消费端宕机，并且将group指定的组删掉的话，消
+          #息的生产者不断地发消息，当机器恢复后，不会消费生产者已经发过的消息，如果不删除group机器恢复后仍然会消费已经发过的消息)
+          group: chenA
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka,http://eureka7002.com:7002/eureka
+  instance:
+    instance-id: receive-8802.com
+    prefer-ip-address: true
+    lease-renewal-interval-in-seconds: 2
+    lease-expiration-duration-in-seconds: 5

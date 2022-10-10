@@ -1,0 +1,19 @@
+server:
+  port: 80
+
+eureka:
+  client:
+    register-with-eureka: false  #是否将自己注册到Eureka Server默认是true
+    service-url:
+      #      defaultZone: http://localhost:7001/eureka #erueka Server注册中心地址
+      defaultZone:  http://eureka7001.com:7001/eureka,http://eureka7002.com:7002/eureka
+
+
+#ribbon:
+#  ReadTimeout: 5000    #调用峰值时间
+#  ConnectTimeout: 5000 #连接峰值时间
+
+# 开启服务降级在客户端启用
+feign:
+  hystrix:
+    enabled: true
