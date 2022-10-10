@@ -55,4 +55,9 @@ public class PaymentController {
         }
     }
 
+    @GetMapping("/payment/zipkin")
+    public String paymentZipkin(){
+        return restTemplate.getForObject("http://localhost:8001"+"/payment/zipkin",String.class);
+    }
+
 }
