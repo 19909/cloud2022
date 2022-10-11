@@ -1,0 +1,20 @@
+server:
+  port: 3377
+spring:
+  application:
+    name: nacos-config-client
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848   #注册中心地址
+      config:
+        file-extension: yaml      #指定yaml格式的配置文件
+        server-addr: localhost:8848   #配置中心地址
+        prefix: nacos-config      #指定prefix的值。
+
+#${prefix}-${spring.profile.active}.${file-extension} 读取的Data Id的规则。
+#   prefix的值默认是spring.application.name 的值，也可以通过spring.cloud.nacos.config.prefix 来配置
+#   spring.profile.active 即为当前环境对应的profile 的值，
+    #注意当spring.profile.active为空时，对应的连接符也将不存在，dataId的拼接格式变成${prefix}.${spring.cloud.nacos.config.file-extension}
+#   file-extension 为配置内容的数据格式，可以通过配置项spring.cloud.nacos.config.file-extension来配置，目前只支持properties 和 yaml类型
+#   通过springcloud 原生注解 @RefreshScope 实现配置自动更新：
