@@ -7,4 +7,5 @@ public class T {
     public void idKo(){
         System.out.println(Integer.MAX_VALUE);
     }
+
 }

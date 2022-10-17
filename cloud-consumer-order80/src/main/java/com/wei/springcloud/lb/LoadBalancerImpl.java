@@ -11,13 +11,13 @@ public class LoadBalancerImpl implements LoadBalancer{
 
     private AtomicInteger atomicInteger = new AtomicInteger(0);
 
-    //获取访问次数
+    //得到需要访问微服务的集合下标
     public final int getAndIncrement(){
-        int current;
-        int next;   //访问次数
+        int current;//微服务的下标 从0开始
+        int next;   //活着的微服务的集合下标
         do {
             current = this.atomicInteger.get(); //获取当前活着的微服务的下标
-            next = current >= Integer.MAX_VALUE ? 0 : current + 1;
+            next = current >= Integer.MAX_VALUE ? 0 : current + 1;  //Integer.MAX_VALUE = 2147483647
         }while (!this.atomicInteger.compareAndSet(current,next));
         System.out.println("*****next:" + next);
         return next;

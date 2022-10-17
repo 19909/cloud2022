@@ -1,0 +1,33 @@
+server:
+  port: 84
+spring:
+  application:
+    name: nacos-order-consumer
+
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+#        自定义一些nacos中元数据
+#        metadata: {
+#          "version": "1.0",
+#          "feature": "false"
+#        }
+    sentinel:
+      transport:
+        dashboard: localhost:8080
+        port: 8719
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+#消费者将要去访问的微服务名称
+service-uri:
+  nacos-user-service: http://nacos-payment-provider
+
+#激活Sentinel对feign的支持
+feign:
+  sentinel:
+    enabled: true
